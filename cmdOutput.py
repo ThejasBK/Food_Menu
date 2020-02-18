@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import sys
 
 def match(df):
     y,z=-1,-1
@@ -30,8 +31,7 @@ def menu(df):
         print(week_days[i],end=': ')
         for j in days[i]:
             print('"'+df[0,j]+'"',end=' ')
-        print()
-            
+        print()            
   
 #To add new food into file
 #Compares if food exists and then adds it
@@ -45,13 +45,48 @@ def food(df):
     file.write(newFood+'\n')
     file.close()
     print('Successufully Entered')
-        
-print('------------------------------')
-n=int(input('Press 1 to show menu or 2 to add a food item '))
-df=np.array(pd.read_csv('food.csv'))
-df=df.reshape(1,df.size)          #Converting to print result directly
-if n==1:
-    menu(df)
-else:
-    food(df)
-print('------------------------------')
+
+def execute():
+     while(True):
+        n=int(input('Press 1 to show menu or 2 to add a food item '))
+        if n==1:
+            menu(df)
+            sys.exit()
+        elif n==2:
+            food(df)
+            sys.exit()
+        else:
+            print('Enter the correct value')
+        print('------------------------------')
+
+if __name__=='__main__':
+    try:
+        print('------------------------------')
+        df=np.array(pd.read_csv('food.csv'))
+        df=df.reshape(1,df.size)          #Converting to print result directly
+        count=df.size
+        while count<7:
+            print('Required number of food items are not present')
+            food(df)
+            count+=1
+        execute()
+    except(FileNotFoundError,IOError):
+        print('File not found error')
+        sys.exit()
+    except(StopIteration):
+        df=np.array(pd.read_csv('food.csv'))
+        df=df.reshape(1,df.size)          #Converting to print result directly
+        days=dict()
+        x=np.random.randint(df[0].size)
+        days[0]=match(df[0])
+        for i in range(1,7):
+            days[i]=[x for x in match(df[0]) if x not in days[i-1]]
+        while len(days[i])!=3:
+            x=additional(days,i)
+            days[i].append(x.__next__())
+        week_days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+        for i in range(7):
+            print(week_days[i],end=': ')
+            for j in days[i]:
+                print('"'+df[0,j]+'"',end=' ')
+            print()
