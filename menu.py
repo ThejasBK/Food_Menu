@@ -4,10 +4,8 @@ print("Content-Type: text/html\n")
 print()
 import cgi
 import cgitb
-#import pandas as pd
-#import numpy as np
 cgitb.enable()
-print('<html><body bgcolor="black"')
+print('<html><body>')
 lst=[]
 f=open('file.txt','r')
 for line in f:
@@ -29,27 +27,33 @@ def match():
     return [x,y,z]
 
 def menu():
+    k=0
     days[0]=match()
     for i in range(1,7):
         days[i]=match()
-    for i in range(1,7):
         for j in range(3):
             while days[i][j] in days[i-1]:
-                days[i][j]=random.randint(0,len(lst)-1)
-    for i in range(1,7):
-        d=set(days[i])
-        while len(d)!=3:
-            d.add(random.randint(0,len(lst)-1))
-        #for j in d:
-        days[i]=list(d)
+                k+=1
+                if k in days[i]:
+                    continue
+                days[i][j]=k
+                if k==len(lst)-1:
+                    k=0
+        
+      
 weekdays=['Mondays','Tuesday','Wednesday','Thurday','Friday','Saturday','Sunday']
-menu()
-print('</body><center><table border=5 bgcolor="white"><th>Days</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th>')
-for i in range(7):
-    print('<tr><td style="font-weight:bold;">'+weekdays[i]+'</td>',end=': ')
-    for j in range(3):
-        print('<td>'+lst[days[i][j]]+'</td>')
-    print('</tr>')
+if len(lst)<8:
+    print('Insufficient food items')
+    print('</body>')
+else:
+    menu()
+    print('<center><table border=5><th>Days</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th>')
+
+    for i in range(7):
+        print('<tr><td style="font-weight:bold;">'+weekdays[i]+'</td>')
+        for j in range(3):
+            print('<td>'+lst[days[i][j]]+'</td>')
+        print('</tr>')
 
 print('</center></table></html>')
 
