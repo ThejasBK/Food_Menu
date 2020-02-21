@@ -5,7 +5,7 @@ print()
 import cgi
 import cgitb
 cgitb.enable()
-print('<html><body>')
+print('<html><body style="background-color:#e7e7e7">')
 lst=[]
 f=open('file.txt','r')
 for line in f:

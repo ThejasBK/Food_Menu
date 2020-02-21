@@ -6,12 +6,12 @@ import cgi
 import cgitb
 cgitb.enable()
 print('<html>')
-
+form=cgi.FieldStorage()
 lst=[]
 flag=0
 #Adding element into file
 f=open('file.txt','r')
-form=cgi.FieldStorage()
+
 for line in f:
     line=line.rstrip()
     lst.append(str(line).upper())
