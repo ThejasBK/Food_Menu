@@ -1,0 +1,22 @@
+﻿@model int[]
+@{
+    string fileContents = System.IO.File.ReadAllText(@"C:\Users\theja\Desktop\a.txt");
+}
+@ViewData["name"]
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Reading Data from a File</title>
+</head>
+<body>
+    <div>
+        <h1>Displaying your menu now:</h1>
+        @foreach (int dataLine in Model)
+        {
+            @dataLine
+            <br />
+        }
+    </div>
+</body>
+</html>

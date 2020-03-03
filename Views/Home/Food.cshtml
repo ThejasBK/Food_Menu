@@ -1,0 +1,30 @@
+﻿@model WebApplication1.Models.UserRLModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "_Layout";
+}
+<html>
+<body>
+    @using (Html.BeginForm("Example", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Enter the food item:</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => Model.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => Model.Name, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="SUBMIT" class="btn btn-default" />
+                
+            </div>
+        </div>
+    }
+</body>
+</html>
