@@ -1,13 +1,8 @@
-Roti
-Sambar Rice
-Sweets
-Burger
-Sandwitch
-Hot Dog
-Salad
-Salad32
-Chicken
-Mutton
-Fish
-Biryani
-Grub grub
+ROTI
+SAMBAR RICE
+SWEETS
+BURGER
+SANDWITCH
+HOT DOG
+SALAD
+VEG BIRYANI
