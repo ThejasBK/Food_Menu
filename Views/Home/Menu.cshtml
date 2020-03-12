@@ -1,4 +1,4 @@
-﻿@model int[]
+﻿@model string[]
 @{
     string fileContents = System.IO.File.ReadAllText(@"C:\Users\theja\Desktop\a.txt");
 }
@@ -12,11 +12,23 @@
 <body>
     <div>
         <h1>Displaying your menu now:</h1>
-        @foreach (int dataLine in Model)
-        {
-            @dataLine
-            <br />
-        }
+
+        <table>
+
+            @{ int i = 0;}
+            @foreach (string dataLine in Model)
+            {
+            <tr>
+                @dataLine
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </tr>
+                i = i + 1;
+                if (i % 3 == 0)
+                {
+                    <br />
+                }
+            }
+        </table>
     </div>
 </body>
 </html>
