@@ -78,21 +78,18 @@ import collections
 
 def menu():
     try:
-        file = open(r"C:\Users\theja\Desktop\a.txt")
         food_items = []
         rows = db().select(db.Food.food_item)
-#         x = [1,2,3]
-#         print x
-        #print rows
-        #return locals()
-        for line in file:
-            #print line.food_item
-            line=line.strip()
+        for line in rows:
+            line = str(line)
+            start = line.find(':')
+            end = line.find('}')
+            line = line[start + 3 : end - 1]
             if line in food_items:
                 continue
             food_items.append(line.strip())
         if(len(food_items)<7):
-            return "Not enough food items in the file"
+            return "Not enough food items in Data Base"
         days = dict()
         days[0] = match(food_items)
         for i in range(1,7):
@@ -105,22 +102,11 @@ def menu():
                 days[key][index] = food_items[val]
         return days
     except:
-        return "File not Found"
+        return "Database Error"
 
 
 def add_food():
     try:
-        file = open(r"C:\Users\theja\Desktop\a.txt","r")
-        food_items = []
-        for line in file:
-            food_items.append(line+', ')
-        a = request.vars.food
-        file.close()
-        file = open(r"C:\Users\theja\Desktop\a.txt","a")
-        a = a.upper()
-        a = a.strip()
-        file.write(a+'\n')
-        file.close()
-        return a
+        db.Food.insert(food_item = request.vars.food)
     except:
         return "File not Found"
