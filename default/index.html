@@ -1,10 +1,19 @@
-<input type="text" name="val">
-<button name="submit" onClick="myFunction()">
-    SUBMIT
-</button>
+{{extend 'layout.html'}}
+{{=A(T("Menu"), _href=URL('default','menu'), _class='button',
+     _style='margin-top: 1em;')}}
+<br>
+Enter a new food to add:<br>
+<form>
+   <input name="food" type="text" />
+    <button type="submit" onClick="myFunction()">
+        SUBMIT
+    </button>
+</form>
+<div id="target"></div>
 <script>
-    function myFunction();{
-        var value = calculateValue();
-        ajax('{{=URL("default", "add_food",args=["submit", "2", "tamil"])}}',[], ":eval");
-    }
+    function myFunction(){
+        //ajax('{{=URL("default", "add_food",args=["submit", "2", "tamil"])}}',[], ":eval");
+        ajax('{{=URL('default', 'add_food')}}', ['food'], 'target')
+        //window.location='add_food';
+    };
 </script>
