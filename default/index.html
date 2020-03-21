@@ -1,0 +1,10 @@
+<input type="text" name="val">
+<button name="submit" onClick="myFunction()">
+    SUBMIT
+</button>
+<script>
+    function myFunction();{
+        var value = calculateValue();
+        ajax('{{=URL("default", "add_food",args=["submit", "2", "tamil"])}}',[], ":eval");
+    }
+</script>
